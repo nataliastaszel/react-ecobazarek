@@ -1,0 +1,6 @@
+.nav-element{
+    @apply flex flex-row h-[64px] items-center;
+}
+.nav-icon {
+    @apply h-[24px] text-white m-[17px] cursor-pointer text-right;
+}
