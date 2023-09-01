@@ -1,0 +1,11 @@
+.colored {
+  @apply text-white text-sm bg-green p-3 rounded-sm;
+}
+
+.basic {
+  @apply text-black text-sm rounded-sm;
+}
+
+.colored:hover {
+  @apply bg-dark-green;
+}

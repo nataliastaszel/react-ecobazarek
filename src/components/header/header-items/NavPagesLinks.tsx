@@ -1,13 +1,12 @@
-import React from "react";
-import NavPage from "./NavPage";
+import NavLinkToPage from "./NavLinkToPage";
 
-const NavPagesLinks: React.FunctionComponent = () => {
+const NavPagesLinks = () => {
   return (
     <div className="nav-element">
-      <NavPage to="/">Home</NavPage>
-      <NavPage to="/about-us">O nas</NavPage>
-      <NavPage to="/products">Produkty</NavPage>
-      <NavPage to="/contact">Kontakt</NavPage>
+      <NavLinkToPage to="/">Home</NavLinkToPage>
+      <NavLinkToPage to="/about-us">O nas</NavLinkToPage>
+      <NavLinkToPage to="/products">Produkty</NavLinkToPage>
+      <NavLinkToPage to="/contact">Kontakt</NavLinkToPage>
     </div>
   );
 };

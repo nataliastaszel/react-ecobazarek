@@ -3,7 +3,14 @@ import ReactDOM from "react-dom/client";
 import Root from "./Root";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { HomePage, ProductsPage, AboutUsPage, ContactPage } from "./pages";
+import {
+  HomePage,
+  ProductsPage,
+  AboutUsPage,
+  ContactPage,
+  TermsOfUsePage,
+  PrivacyPolicyPage,
+} from "./pages";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +32,14 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <ContactPage />,
+      },
+      {
+        path: "/terms-of-use",
+        element: <TermsOfUsePage />,
+      },
+      {
+        path: "/privacy-policy",
+        element: <PrivacyPolicyPage />,
       },
     ],
   },

@@ -1,19 +1,14 @@
-import React from "react";
 import NavLogo from "./header-items/NavLogo";
-import NavItem from "./header-items/NavPagesLinks";
-import NavIcons from "./header-items/NavIcons";
+import NavPagesLinks from "./header-items/NavPagesLinks";
+import NavCallToActionButtons from "./header-items/NavCallToActionButtons";
 import "./header.css";
 
-export const Header: React.FunctionComponent = () => {
+export const Header = () => {
   return (
-    <header className="h-[64px] bg-[#46AA42]">
-      <ul className="flex flex-row">
+    <header className="sticky top-0 w-screen bg-green shadow-3xl flex flex-col sm:flex-row">
         <NavLogo />
-        <NavItem />
-        <NavIcons />
-      </ul>
+        <NavPagesLinks />
+        <NavCallToActionButtons />
     </header>
   );
 };
-
-
