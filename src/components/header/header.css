@@ -1,0 +1,12 @@
+.nav-element{
+    @apply flex flex-row sm:my-0 my-1 sm:h-[64px] justify-center sm:items-center;
+}
+.nav-icon {
+    @apply h-[24px] text-white  mx-3 sm:m-[17px] cursor-pointer;
+}
+.active{
+   @apply text-sm text-light-yellow;
+}
+.inactive{
+    @apply text-white text-sm  hover:text-light-yellow;
+}
