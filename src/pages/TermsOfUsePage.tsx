@@ -2,7 +2,7 @@ import { Content } from "../components";
 
 export const TermsOfUsePage = () => {
   return (
-    <Content title="Terms of use">
+    <Content title="Terms of use" className="p-5">
       Terms of use
       <p>
         What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing

@@ -49,10 +49,10 @@ const Subscribe = () => {
           value: email,
           onChange: (event) => setEmail(event.target.value),
         }}
-        className="mr-4 sm:w-[420px] w-3/4"
+        className=" mr-4 sm:w-[420px]"
       />
       <Button
-        className="ml-4 h-[42px] sm:w-[134px] w-1/4"
+        className="h-[42px] sm:w-[134px]"
         onClick={handleSubscribe}
         variant="colored"
       >

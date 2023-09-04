@@ -2,7 +2,7 @@ import { Content } from "../components";
 
 export const PrivacyPolicyPage = () => {
   return (
-    <Content title="Privacy policy">
+    <Content title="Privacy policy" className="p-5">
       Privacy Policy 
       <p>he standard Lorem Ipsum passage, used since the 1500s
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod

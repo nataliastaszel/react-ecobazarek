@@ -2,7 +2,7 @@ import { Content } from "../components";
 
 export const ProductsPage = () => {
   return (
-    <Content title="Products page">
+    <Content title="Products page" className="p-5">
       Products page
       <p>
         he standard Lorem Ipsum passage, used since the 1500s "Lorem ipsum dolor

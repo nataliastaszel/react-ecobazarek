@@ -1,8 +1,16 @@
+import { useEffect, useState } from "react";
 import { Content } from "../components";
 
 export const HomePage = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => setIsLoading(false), 2000);
+    return () => clearInterval(intervalId);
+  }, []);
+
   return (
-    <Content title="Home page">
+    <Content title="Home page" isLoading={isLoading} className="p-5">
       <p>
         The standard Lorem Ipsum passage, used since the 1500s "Lorem ipsum
         dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
