@@ -3,13 +3,14 @@ import Button from "../../button/Button";
 import Input from "../../input/Input";
 import { subscribe } from "../../../api";
 import { toast } from "react-toastify";
-import { HttpStatusCode } from "axios";
+import axios, { AxiosError } from "axios";
+import { AxiosResponseWithErrors } from "../../../types/types";
 
 const Subscribe = () => {
   const [subscribedEmails, setSubscribedEmails] = useState<string[]>([]);
   const [email, setEmail] = useState<string>("");
 
-  const handleSubscribe = (): void => {
+  const handleSubscribe = async () => {
     if (!email) {
       toast("Wprowadź email", { type: "info", toastId: "info" });
       return;
@@ -23,11 +24,8 @@ const Subscribe = () => {
       return;
     }
 
-    subscribe(email)
-      .then((response) => {
-        if (response.status !== HttpStatusCode.Accepted) {
-          throw new Error();
-        }
+    await subscribe(email)
+      .then(() => {
         setSubscribedEmails((prevSubscribedEmails) => [
           ...prevSubscribedEmails,
           email,
@@ -37,27 +35,35 @@ const Subscribe = () => {
           toastId: "success",
         });
       })
-      .catch(() =>
-        toast("Niepoprawny email", { type: "error", toastId: "error" })
-      );
+      .catch((error: AxiosError<AxiosResponseWithErrors>) => {
+        const errorMessageResponse = error.response?.data.errors[0];
+        if (axios.isAxiosError(error) && errorMessageResponse) {
+          toast(errorMessageResponse, { type: "error", toastId: "error" });
+        } else {
+          toast("Coś poszło nie tak, nie można zasubkrybować", {
+            type: "error",
+            toastId: "error",
+          });
+        }
+      });
   };
 
   return (
     <div className="flex flex-row justify-center items-center w-[95%] my-7">
       <Input
         inputProps={{
+          type: email,
           value: email,
           onChange: (event) => setEmail(event.target.value),
         }}
-        className=" mr-4 sm:w-[420px]"
+        className=" h-10 mr-4 sm:w-[420px]"
       />
       <Button
         className="h-[42px] sm:w-[134px]"
         onClick={handleSubscribe}
         variant="colored"
-      >
-        Subskrybuj
-      </Button>
+        buttonText="Subskrybuj"
+      ></Button>
     </div>
   );
 };

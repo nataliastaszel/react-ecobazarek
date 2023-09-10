@@ -6,9 +6,9 @@ import "./header.css";
 export const Header = () => {
   return (
     <header className="sticky top-0 w-screen bg-green shadow-3xl flex flex-col sm:flex-row">
-        <NavLogo />
-        <NavPagesLinks />
-        <NavCallToActionButtons />
+      <NavLogo />
+      <NavPagesLinks />
+      <NavCallToActionButtons />
     </header>
   );
 };

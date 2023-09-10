@@ -9,3 +9,6 @@
 .colored:hover {
   @apply bg-dark-green;
 }
+.basic:hover {
+  @apply bg-light-grey;
+}

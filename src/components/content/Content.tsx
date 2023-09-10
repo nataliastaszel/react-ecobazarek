@@ -1,17 +1,16 @@
 import { HTMLAttributes } from "react";
 import { Helmet } from "react-helmet-async";
-import "./content.css";
-import { FloatingActionButton } from "../floating-action-button/FloatingActionButton";
+import FloatingActionButton from "../floating-action-button/FloatingActionButton";
 import { clsx } from "clsx";
-import { Loader } from "../loader/Loader";
+import Loader from "../loader/Loader";
 
-export interface ContentProps extends HTMLAttributes<HTMLElement> {
+interface ContentProps extends HTMLAttributes<HTMLElement> {
   title: string;
   isLoading?: boolean;
 }
 
 export const Content = (props: ContentProps) => {
-  const { children, title, className, isLoading, ...other } = props;
+  const { children, title, isLoading, className, ...other } = props;
   return (
     <main
       className={clsx(className, "content-container bg-ecru/75")}
@@ -20,7 +19,11 @@ export const Content = (props: ContentProps) => {
       <Helmet>
         <title>{title}</title>
       </Helmet>
-      {isLoading && (<div className="absolute top-0 bottom-0 left-0 right-0 z-10 p-1 bg-opacity-40 bg-ecru/75"><Loader/></div>)}
+      {isLoading && (
+        <div className=" absolute sm:top-[64px] top-0 h-[calc(100vh-160px)]  w-screen z-[9999] p-1 bg-opacity-40 bg-ecru/75">
+          <Loader />
+        </div>
+      )}
       {children}
       <FloatingActionButton />
     </main>

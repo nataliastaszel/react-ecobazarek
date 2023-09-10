@@ -4,9 +4,9 @@ export default {
   theme: {
     screens: {
       sm: "578px",
-      //   md: '768px',
-      //   lg: '976px',
-      //   xl: '1440px',
+      md: "768px",
+      lg: "976px",
+      xl: "1440px",
     },
     colors: {
       ecru: "#F6F5F1",
@@ -18,6 +18,7 @@ export default {
       "light-yellow": "#FCFE7F",
       grey: "#464646",
       "light-grey": "#E6E6E6",
+      red: "#FF0000",
     },
     extend: {
       fontFamily: {

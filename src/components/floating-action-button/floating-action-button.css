@@ -1,0 +1,7 @@
+.floating-action-button {
+  @apply bg-green fixed sm:top-[670px] sm:right-[30px] bottom-[100px] right-[25px] cursor-pointer w-[42px] h-[42px] flex items-center justify-center rounded-full;
+}
+
+.caret {
+  @apply w-[30%] h-[30%] border-t-white border-t-2 border-l-2 border-l-white mt-1 rotate-45 translate-x-[5%] translate-y-[5%];
+}

@@ -4,7 +4,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function Root() {
+const Root = () => {
   return (
     <>
       <HelmetProvider>
@@ -12,9 +12,9 @@ function Root() {
         <Outlet />
         <Footer />
       </HelmetProvider>
-      <ToastContainer position="bottom-right" />
+      <ToastContainer position="top-right" />
     </>
   );
-}
+};
 
 export default Root;
