@@ -1,16 +1,21 @@
 import { FormEvent, useState } from "react";
 import {
-  AxiosResponseWithErrors,
-  ContactFormFieldProps,
   ContactFormState,
-  ContactFormValidationState,
+  FormFieldProps,
+  FormValidationState,
 } from "../../types/types";
 import Button from "../button/Button";
 import Input from "../input/Input";
 import { toast } from "react-toastify";
 import { postContactFormData } from "../../api";
-import axios, { AxiosError } from "axios";
 import { TextField } from "../text-field/TextField";
+import {
+  EMAIL_REGEX,
+  PHONE_REGEX,
+  areAllFormFieldsValid,
+  validateFormFieldWithRegex,
+} from "./formValidation";
+import { getErrorMessagesFromFailedResponse } from "./formErrorHandling";
 
 const initialContactFormState: ContactFormState = {
   fullName: "",
@@ -20,56 +25,29 @@ const initialContactFormState: ContactFormState = {
   phone: "",
 };
 
-const initialContactFormValidationState: ContactFormValidationState = {
+const initialContactFormValidationState: FormValidationState = {
   isEmailValid: true,
   isPhoneValid: true,
 };
-
-const EMAIL_REGEX: RegExp = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-const PHONE_REGEX: RegExp = /\d{9}/;
 
 export const ContactForm = () => {
   const [contactFormState, setContactFormState] = useState<ContactFormState>(
     initialContactFormState
   );
 
-  const [contactFormValidationState, setContactFromValidationState] =
-    useState<ContactFormValidationState>(initialContactFormValidationState);
+  const [contactFormValidationState, setContactFormValidationState] =
+    useState<FormValidationState>(initialContactFormValidationState);
 
   const clearContactFormData = (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
     setContactFormState(initialContactFormState);
-    setContactFromValidationState(initialContactFormValidationState);
+    setContactFormValidationState(initialContactFormValidationState);
   };
 
-  const validateContactFormFieldWithRegex = (
-    validationField: keyof ContactFormValidationState,
-    contactField: keyof ContactFormState,
-    regex: RegExp
-  ) => {
-    if (
-      contactFormState[contactField] &&
-      !contactFormState[contactField].match(regex)
-    ) {
-      setContactFromValidationState((previous) => ({
-        ...previous,
-        [validationField]: false,
-      }));
-    } else
-      setContactFromValidationState((previous) => ({
-        ...previous,
-        [validationField]: true,
-      }));
-  };
-
-  const areAllFormFieldsValid = (): boolean => {
-    const { isEmailValid, isPhoneValid } = contactFormValidationState;
-    return isEmailValid && isPhoneValid;
-  };
   const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (areAllFormFieldsValid()) {
+    if (areAllFormFieldsValid(contactFormValidationState)) {
       await postContactFormData(contactFormState)
         .then(() => {
           toast(
@@ -89,27 +67,7 @@ export const ContactForm = () => {
       });
   };
 
-  const getErrorMessagesFromFailedResponse = (
-    error: AxiosError<AxiosResponseWithErrors>
-  ): string[] => {
-    const errorsFromResponse = error.response?.data.errors;
-    const errorMessagesToDisplay: string[] = [];
-
-    if (axios.isAxiosError(error)) {
-      if (errorsFromResponse?.includes("email must be a valid email")) {
-        errorMessagesToDisplay.push("Wprowadź poprawny email");
-      }
-      if (errorsFromResponse?.includes("Phone number is not valid")) {
-        errorMessagesToDisplay.push("Wprowadź poprawny numer telefonu");
-      }
-      return errorMessagesToDisplay;
-    }
-    return ["Coś poszło nie tak, nie można wysłać formularza"];
-  };
-
-  const getInputProps = (
-    key: keyof ContactFormState
-  ): ContactFormFieldProps => ({
+  const getInputProps = (key: keyof ContactFormState): FormFieldProps => ({
     name: key,
     value: contactFormState[key],
     onChange: (event) =>
@@ -121,7 +79,7 @@ export const ContactForm = () => {
 
   return (
     <>
-      <p className="flex font-bold text-xl mb-7 w-[98%] sm:w-2/3">
+      <p className="flex font-bold text-xl mb-7 w-[98%] sm:w-2/3 text-brown">
         NAPISZ WIADOMOŚĆ
       </p>
       <form onSubmit={handleFormSubmit} className="sm:w-2/3  w-[98%]">
@@ -139,10 +97,12 @@ export const ContactForm = () => {
               required
               inputProps={{ ...getInputProps("email") }}
               onBlur={() =>
-                validateContactFormFieldWithRegex(
+                validateFormFieldWithRegex(
                   "isEmailValid",
                   "email",
-                  EMAIL_REGEX
+                  EMAIL_REGEX,
+                  contactFormState,
+                  setContactFormValidationState
                 )
               }
               error={!contactFormValidationState.isEmailValid}
@@ -153,10 +113,12 @@ export const ContactForm = () => {
               labelText="Telefon"
               inputProps={{ ...getInputProps("phone") }}
               onBlur={() =>
-                validateContactFormFieldWithRegex(
+                validateFormFieldWithRegex(
                   "isPhoneValid",
                   "phone",
-                  PHONE_REGEX
+                  PHONE_REGEX,
+                  contactFormState,
+                  setContactFormValidationState
                 )
               }
               error={!contactFormValidationState.isPhoneValid}

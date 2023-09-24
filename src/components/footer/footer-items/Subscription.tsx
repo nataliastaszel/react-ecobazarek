@@ -3,8 +3,7 @@ import Button from "../../button/Button";
 import Input from "../../input/Input";
 import { subscribe } from "../../../api";
 import { toast } from "react-toastify";
-import axios, { AxiosError } from "axios";
-import { AxiosResponseWithErrors } from "../../../types/types";
+import axios, { AxiosError, AxiosResponseHeaders } from "axios";
 
 const Subscribe = () => {
   const [subscribedEmails, setSubscribedEmails] = useState<string[]>([]);
@@ -35,8 +34,8 @@ const Subscribe = () => {
           toastId: "success",
         });
       })
-      .catch((error: AxiosError<AxiosResponseWithErrors>) => {
-        const errorMessageResponse = error.response?.data.errors[0];
+      .catch((error: AxiosError<AxiosResponseHeaders>) => {
+        const errorMessageResponse = error.response?.data.message;
         if (axios.isAxiosError(error) && errorMessageResponse) {
           toast(errorMessageResponse, { type: "error", toastId: "error" });
         } else {

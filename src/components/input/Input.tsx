@@ -11,6 +11,7 @@ export interface InputElementProps
   classNameLabel?: string;
   required?: boolean;
   error?: boolean;
+  value?: string;
   errorHelperText?: string;
   classNameErrorHelperText?: string;
 }
@@ -19,6 +20,7 @@ const Input = (props: InputElementProps) => {
   const {
     className,
     labelText,
+    value,
     errorHelperText,
     classNameErrorHelperText,
     error = false,
@@ -38,6 +40,7 @@ const Input = (props: InputElementProps) => {
               : "outline-red outline-2"
           } p-2`
         )}
+        value={value}
         required={required}
         autoComplete="off"
         {...inputProps}

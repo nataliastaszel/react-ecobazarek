@@ -10,7 +10,13 @@ import {
   ContactPage,
   TermsOfUsePage,
   PrivacyPolicyPage,
+  ProfilePage,
+  RegistrationPage,
+  LoginPage,
+  AddProductPage,
 } from "./pages";
+import { Provider } from "react-redux";
+import { STORE } from "./redux/store";
 
 const router = createBrowserRouter([
   {
@@ -41,12 +47,30 @@ const router = createBrowserRouter([
         path: "/privacy-policy",
         element: <PrivacyPolicyPage />,
       },
+      {
+        path: "/profile",
+        element: <ProfilePage />,
+      },
+      {
+        path: "/registration",
+        element: <RegistrationPage />,
+      },
+      {
+        path: "/login",
+        element: <LoginPage />,
+      },
+      {
+        path: "/add-product",
+        element: <AddProductPage />,
+      },
     ],
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={STORE}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );

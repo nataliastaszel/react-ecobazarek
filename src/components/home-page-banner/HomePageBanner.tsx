@@ -6,7 +6,7 @@ const HomePageBanner = () => {
       <img
         src={photo}
         alt="Warzywa"
-        className="mb-10 relative sm:w-screen sm:h-[60vh]"
+        className="mb-10 sm:w-screen sm:h-[60vh]"
       />
       <p className="absolute text-white text-center z-10 sm:text-[48px] top-[200px] text-3xl sm:top-[221px] font-extrabold drop-shadow-2xl">
         ŚWIEŻE OWOCE I WARZYWA

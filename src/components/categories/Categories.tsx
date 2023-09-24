@@ -1,7 +1,6 @@
-import axios, { AxiosError } from "axios";
-import { getCategories } from "../../api";
+import axios, { AxiosError, AxiosResponseHeaders } from "axios";
+import { getAllCategories } from "../../api";
 import {
-  AxiosResponseWithErrors,
   CategoryItem,
   LoadingComponentProps,
 } from "../../types/types";
@@ -15,14 +14,14 @@ export const Categories = ({ onRequestLoading }: LoadingComponentProps) => {
   useEffect(() => {
     const getCategoryItems = async () => {
       onRequestLoading(true);
-      await getCategories()
+      await getAllCategories()
         .then((response) => {
           setCategoryItems(response.data);
           onRequestLoading(false);
         })
-        .catch((error: AxiosError<AxiosResponseWithErrors>) => {
+        .catch((error: AxiosError<AxiosResponseHeaders>) => {
           onRequestLoading(false);
-          const errorMessageResponse = error.response?.data.errors[0];
+          const errorMessageResponse = error.response?.data.message;
           if (axios.isAxiosError(error) && errorMessageResponse) {
             toast(errorMessageResponse, {
               type: "error",

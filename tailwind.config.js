@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
@@ -19,6 +20,7 @@ export default {
       grey: "#464646",
       "light-grey": "#E6E6E6",
       red: "#FF0000",
+      "medium-grey": "#D3D3D3",
     },
     extend: {
       fontFamily: {
@@ -29,5 +31,6 @@ export default {
       },
     },
   },
-  plugins: [],
+  // eslint-disable-next-line @typescript-eslint/no-var-requires, no-undef
+  plugins: [require("@headlessui/tailwindcss")({ prefix: "ui" })],
 };

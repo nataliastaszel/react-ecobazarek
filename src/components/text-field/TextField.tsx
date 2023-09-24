@@ -10,6 +10,7 @@ interface TextFieldElementProps
   textFieldProps?: TextFieldProps;
   labelText?: string;
   required?: boolean;
+  value?: string;
 }
 
 export const TextField = (props: TextFieldElementProps) => {
@@ -17,6 +18,7 @@ export const TextField = (props: TextFieldElementProps) => {
     className,
     textFieldProps = {},
     labelText,
+    value,
     required = false,
     ...other
   } = props;
@@ -29,6 +31,7 @@ export const TextField = (props: TextFieldElementProps) => {
           "flex overflow-x-hidden p-3 focus:outline-none focus:border-green focus:border-2 focus:rounded-[5px] rounded-sm hover:bg-light-grey resize-none"
         )}
         autoComplete="off"
+        value={value}
         {...textFieldProps}
       />
     </div>

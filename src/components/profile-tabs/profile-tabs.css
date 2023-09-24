@@ -1,0 +1,3 @@
+.tab-element {
+  @apply ui-selected:border-b ui-selected:border-green  ui-selected:outline-none ui-not-selected:border-0  ui-not-selected:border-light-grey h-[40px] align-top;
+}
